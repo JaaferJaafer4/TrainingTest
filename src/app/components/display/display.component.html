@@ -1,0 +1,57 @@
+<div class="mt-2">
+  <div class="search-row ">
+  <div class="search-container">
+    <input
+      type="text"
+      placeholder="Search...."
+      (keyup)="search(select.value,$event)"
+    />
+
+  </div>
+
+    <select class="form-select" style="height: 60px;width: 120px;background-color: lightgrey;" #select>
+      <option selected value="id">Id</option>
+      <option value="author">Author</option>
+      <option value="text">Text</option>
+    </select>
+    <div class="alert alert-danger" role="alert" *ngIf="error">
+      Id must be a number!
+    </div>
+    <div>
+      
+    </div>
+    <button type="button" class="btn " [ngClass]="favorite == false ? 'btn-light' : 'btn-secondary'" (click)="toggleFavorite()">Favorites</button>
+    
+
+
+  
+  </div>
+<div class="card-container mt-2" *ngIf="!filter; else filteredBlock">
+    <div *ngFor="let card of display_data" class="card">
+      <div class="image-container" (click)="favoriteClick(card.id)">
+      <img [src]="card.photo" alt="Image" class="card-image">
+      <span class="favorite-icon" [ngStyle]="isFav(card.id)?{'color': 'gold'} : {'color': 'gray'}">&#9733;</span>
+      </div>
+      <div class="card-content">
+        <h2 class="card-title">{{ card.author }}</h2>
+        <p class="card-text">{{ card.text }}</p>
+      </div>
+    </div>
+  </div>
+
+<ng-template  #filteredBlock>
+  <div class="card-container mt-2" >
+  <div *ngFor="let card of filtered_array" class="card">
+    <div class="image-container" (click)="favoriteClick(card.id)">
+      <img [src]="card.photo" alt="Image" class="card-image">
+      <span class="favorite-icon" [ngStyle]="isFav(card.id)?{'color': 'gold'} : {'color': 'gray'}">&#9733;</span>
+      </div>
+    <div class="card-content">
+      <h2 class="card-title">{{ card.author }}</h2>
+      <p class="card-text">{{ card.text }}</p>
+    </div>
+  </div>
+  </div>
+</ng-template>
+</div>
+  
